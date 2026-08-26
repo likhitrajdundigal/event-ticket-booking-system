@@ -1,0 +1,17 @@
+@startuml
+title bdd [block] EventBook logical architecture
+skinparam componentStyle rectangle
+class "Web client" as UI <<block>> { + renderScreens() + submitBooking() }
+class "Application server" as API <<block>> { + authenticate() + createBooking() + createEvent() }
+class "Data store" as DB <<block>> { events : Event[*] bookings : Booking[*] }
+class "Event" as Event <<block>> { id title date time venue price capacity booked }
+class "Booking" as Booking <<block>> { id eventId email quantity total status }
+UI --> API : JSON/HTTP
+API --> DB : read/write
+DB *-- Event
+DB *-- Booking
+note right of API
+Role authorisation, input validation,
+and capacity validation execute here.
+end note
+@enduml

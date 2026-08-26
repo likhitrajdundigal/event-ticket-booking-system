@@ -1,0 +1,20 @@
+@startuml
+actor Customer
+participant "Web client" as UI
+participant "Booking API" as API
+database "Data store" as DB
+Customer -> UI : choose quantity, confirm
+UI -> API : POST /api/bookings(eventId, quantity)
+API -> API : authenticate and validate quantity
+API -> DB : retrieve event
+DB --> API : capacity/booked
+alt tickets available
+ API -> DB : increment booked; save booking
+ DB --> API : booking ID
+ API --> UI : 201 confirmation
+ UI --> Customer : success state and total
+else insufficient tickets
+ API --> UI : 400 validation error
+ UI --> Customer : error state
+end
+@enduml

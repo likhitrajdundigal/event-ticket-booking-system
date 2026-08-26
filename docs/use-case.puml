@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+actor Customer
+actor Administrator
+rectangle "EventBook" {
+  usecase "Authenticate" as UC1
+  usecase "Browse events" as UC2
+  usecase "Book tickets" as UC3
+  usecase "View/cancel own booking" as UC4
+  usecase "Create event" as UC5
+  usecase "View/cancel all bookings" as UC6
+  usecase "Validate capacity" as UC7
+}
+Customer --> UC1
+Customer --> UC2
+Customer --> UC3
+Customer --> UC4
+Administrator --> UC1
+Administrator --> UC5
+Administrator --> UC6
+UC3 .> UC7 : <<include>>
+@enduml

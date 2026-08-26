@@ -1,0 +1,11 @@
+@startuml
+left to right direction
+package "EventBook requirements" {
+  requirement R01 { id = R-01 text = "Separate customer and administrator capabilities after authentication." }
+  requirement R02 { id = R-02 text = "Display event details and remaining ticket capacity." }
+  requirement R03 { id = R-03 text = "Create a booking for a positive whole ticket quantity." }
+  requirement R04 { id = R-04 text = "Reject bookings exceeding event capacity." }
+  requirement R05 { id = R-05 text = "Allow administrators to create a validated event." }
+  requirement R06 { id = R-06 text = "Persist events and bookings." }
+}
+@enduml
