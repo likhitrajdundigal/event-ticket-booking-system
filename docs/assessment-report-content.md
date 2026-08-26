@@ -53,11 +53,11 @@ The SysML views are a requirement diagram (`requirements.puml`), a use-case view
 
 | Requirement | Story/issue | Design element | UI screen | Commit | Deployment evidence |
 |---|---|---|---|---|---|
-| R-01 | US-01 | Login API, session/role check | Login | Add after commit | Screenshot: role-specific navigation |
-| R-02 | US-02 | GET /api/events, Event entity | Event list | Add after commit | Screenshot: public events page |
-| R-03/R-04 | US-03 | POST /api/bookings, capacity check | Booking form/success/error | Add after commit | Screenshot: EC2 booking confirmation |
-| R-05 | US-04 | POST /api/events, validEvent | Create event form | Add after commit | Screenshot: EC2 admin validation |
-| R-06 | US-03/04 | data.json repository | N/A | Add after commit | Restart server and show retained booking |
+| R-01 | US-01 | Login API, session/role check | Login | `1de60f0` | Screenshot: role-specific navigation |
+| R-02 | US-02 | GET /api/events, Event entity | Event list | `1de60f0` | Screenshot: public events page |
+| R-03/R-04 | US-03 | POST /api/bookings, capacity check | Booking form/success/error | `1de60f0` | Screenshot: EC2 booking confirmation |
+| R-05 | US-04 | POST /api/events, validEvent | Create event form | `1de60f0` | Screenshot: EC2 admin validation |
+| R-06 | US-03/04 | data.json repository | N/A | `1de60f0` | Restart server and show retained booking |
 
 ## 3. UI/UX design
 
