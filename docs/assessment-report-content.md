@@ -47,7 +47,23 @@ Tasks: define requirements and wireframes; create data model/API; implement UI; 
 
 R-01: The system shall separate customer and administrator capabilities after authentication. R-02: The system shall display event title, date/time, venue, price, and remaining tickets. R-03: The system shall create a confirmed booking only for a positive whole ticket quantity. R-04: The system shall reject a booking exceeding event capacity. R-05: The system shall allow an administrator to create a validated event. R-06: The system shall persist events and bookings.
 
-The SysML views are a requirement diagram (`requirements.puml`), a use-case view (`use-case.puml`), a block definition view (`system-design.puml`), and a booking sequence view (`booking-sequence.puml`). These cover requirements, system boundary, structural components/data, and behaviour. Open the files in PlantUML or reproduce the contents in Draw.io, then add the view-only link to the cover page.
+The following diagram views cover requirements, system boundary, structural components/data, and behaviour. The editable PlantUML sources are retained in `requirements.puml`, `use-case.puml`, `system-design.puml`, and `booking-sequence.puml`. Recreate/import these in Draw.io and add the view-only link to the cover page.
+
+#### Figure 1. SysML-style requirements view
+
+![EventBook requirements diagram](diagrams/requirements.svg)
+
+#### Figure 2. Use-case view
+
+![EventBook use-case diagram](diagrams/use-case.svg)
+
+#### Figure 3. Block definition / logical architecture view
+
+![EventBook logical architecture diagram](diagrams/architecture.svg)
+
+#### Figure 4. Customer booking sequence view
+
+![EventBook booking sequence diagram](diagrams/booking-sequence.svg)
 
 ### Traceability matrix
 

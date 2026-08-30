@@ -45,6 +45,13 @@ const server = http.createServer(async (req, res) => {
     if (!requireRole(req,res,'admin')) return; const e = await body(req); if (!validEvent(e)) return json(res,400,{error:'Complete all event fields. Price must be zero or more and capacity must be positive.'});
     const db = readDb(); const event={id:`evt-${crypto.randomUUID().slice(0,8)}`,title:e.title.trim(),date:e.date,time:e.time,venue:e.venue.trim(),price:Number(e.price),capacity:Number(e.capacity),booked:0,description:(e.description||'').trim()}; db.events.push(event); writeDb(db); return json(res,201,event);
   }
+  if (req.method === 'PUT' && /^\/api\/events\/[^/]+$/.test(url.pathname)) {
+    if (!requireRole(req,res,'admin')) return; const e = await body(req); const db = readDb(); const event = db.events.find(item => item.id === url.pathname.split('/')[3]);
+    if (!event) return json(res,404,{error:'Event was not found.'});
+    if (!validEvent(e)) return json(res,400,{error:'Complete all event fields. Price must be zero or more and capacity must be positive.'});
+    if (Number(e.capacity) < event.booked) return json(res,400,{error:`Capacity cannot be below the ${event.booked} ticket(s) already booked.`});
+    Object.assign(event,{title:e.title.trim(),date:e.date,time:e.time,venue:e.venue.trim(),price:Number(e.price),capacity:Number(e.capacity),description:(e.description||'').trim()}); writeDb(db); return json(res,200,event);
+  }
   const file = url.pathname === '/' ? 'public/index.html' : `public${url.pathname}`; const safe = path.normalize(file).replace(/^\.\.([/\\]|$)/, ''); const target=path.join(__dirname,safe);
   if (req.method === 'GET' && fs.existsSync(target) && fs.statSync(target).isFile()) { const ext=path.extname(target); res.writeHead(200,{'Content-Type': ext==='.css'?'text/css':ext==='.js'?'application/javascript':'text/html'}); return fs.createReadStream(target).pipe(res); }
   json(res,404,{error:'Not found'});

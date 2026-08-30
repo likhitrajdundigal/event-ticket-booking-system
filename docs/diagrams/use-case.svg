@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="570" viewBox="0 0 1000 570">
+ <style>text{font-family:Arial,sans-serif;fill:#172033}.title{font-size:25px;font-weight:700}.label{font-size:16px}.small{font-size:13px}.actor{stroke:#172033;stroke-width:2;fill:none}.case{fill:#edf4ff;stroke:#2563eb;stroke-width:2}.boundary{fill:#fbfdff;stroke:#64748b;stroke-width:2}.line{stroke:#475569;stroke-width:2;fill:none}.dash{stroke-dasharray:7 5}</style>
+ <text x="500" y="37" text-anchor="middle" class="title">EventBook Use-Case Diagram</text>
+ <rect x="250" y="70" width="650" height="440" rx="12" class="boundary"/><text x="575" y="100" text-anchor="middle" class="title" font-size="19">EventBook system boundary</text>
+ <g class="actor"><circle cx="110" cy="160" r="22"/><path d="M110 182v68m-35-36h70m-35 36l-30 50m30-50l30 50"/><circle cx="110" cy="390" r="22"/><path d="M110 412v68m-35-36h70m-35 36l-30 50m30-50l30 50"/></g>
+ <text x="110" y="325" text-anchor="middle" class="label">Customer</text><text x="110" y="555" text-anchor="middle" class="label">Administrator</text>
+ <g class="case"><ellipse cx="420" cy="150" rx="105" ry="35"/><ellipse cx="420" cy="245" rx="105" ry="35"/><ellipse cx="420" cy="340" rx="105" ry="35"/><ellipse cx="420" cy="435" rx="125" ry="35"/><ellipse cx="720" cy="245" rx="105" ry="35"/><ellipse cx="720" cy="340" rx="135" ry="35"/><ellipse cx="720" cy="435" rx="105" ry="35"/></g>
+ <g class="label" text-anchor="middle"><text x="420" y="156">Authenticate</text><text x="420" y="251">Browse events</text><text x="420" y="346">Book tickets</text><text x="420" y="429">View / cancel own booking</text><text x="720" y="251">Create event</text><text x="720" y="346">View / cancel all bookings</text><text x="720" y="441">Validate capacity</text></g>
+ <g class="line"><path d="M145 214L315 150M145 220L315 245M145 230L315 340M145 245L295 435M145 442L315 150M145 446L615 245M145 452L585 340M525 340L615 435"/><path class="dash" d="M525 340L615 435"/></g><text x="565" y="390" class="small">&lt;&lt;include&gt;&gt;</text>
+</svg>
