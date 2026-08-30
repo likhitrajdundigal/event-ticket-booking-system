@@ -91,7 +91,7 @@ The following refinements strengthen usability without changing the core assessm
 | R-05 | EVENT-7; EVENT-15 | Create/edit form, `validEvent`, admin dashboard | Admin create/edit screen and validation error |
 | R-06 | EVENT-6/7; EVENT-14 | `data.json` repository, read/write helpers, cancellation update | `data.json`/terminal persistence evidence after restart |
 | R-07 | EVENT-11; EVENT-14 | Confirmation receipt, booking history, cancellation confirmation | My Bookings screen before/after cancellation |
-| Quality and delivery | EVENT-17; EVENT-18 | Node test suite, GitHub Actions workflow, PM2/Nginx deployment process | `npm test`, Actions run, PM2/Nginx/local curl output |
+| Quality, delivery and design evidence | EVENT-17; EVENT-18; EVENT-20 | Node test suite, GitHub Actions workflow, PM2/Nginx deployment process, detailed engineering diagrams and report integration | `npm test`, Actions run, PM2/Nginx/local curl output, report diagram figures |
 
 ---
 
@@ -113,9 +113,9 @@ The final assessment project is the fresh Jira project **EventBook Ticket Bookin
 | Admin create/edit event | EVENT-7 | Done |
 | Admin view all event bookings | EVENT-8 | Done |
 | Customer view/cancel bookings | EVENT-11 | Done |
-| Implementation, validation, testing, CI and EC2 evidence tasks | EVENT-9, EVENT-10, EVENT-12 to EVENT-18 | Done |
+| Implementation, validation, testing, CI, EC2 and diagram-evidence tasks | EVENT-9, EVENT-10, EVENT-12 to EVENT-18; EVENT-20 | Done |
 
-At the time of evidence capture, the Jira summary showed **15 completed delivery work items from 19 total items**. The remaining four items are the structural epics; their progress is shown as 100% because their child work is complete.
+At the time of evidence capture, the Jira summary showed **16 completed delivery work items from 20 total items**. The remaining four items are the structural epics; their progress is shown as 100% because their child work is complete.
 
 ### 4.2 Sprint evidence
 
@@ -317,9 +317,9 @@ Take screenshots at a readable scale and name the files sequentially, for exampl
 
 | Figure | Screenshot | What it must prove |
 |---|---|---|
-| 14 | Jira Summary | The `EVENT` project contains 19 total items and 15 completed delivery work items; the four epics show their progress. |
+| 14 | Jira Summary | The `EVENT` project contains 20 total items and 16 completed delivery work items; the four epics show their progress. |
 | 15 | Jira Board | `EVENT Sprint 1` has six completed stories in the Done column with their epic parent labels. |
-| 16 | Jira Backlog | Four epics and the nine detailed implementation/quality/deployment tasks are present and linked to the correct epic. |
+| 16 | Jira Backlog | Four epics and the ten detailed implementation/quality/deployment/documentation tasks are present and linked to the correct epic. |
 | 17 | GitHub repository/history | Repository name, readable project files, release tag and real commit history are visible. |
 | 18 | GitHub Actions | CI workflow runs `npm test` successfully on `main`. |
 | 19 | Home / search / availability | Search, sort/filter controls, event metadata, ticket availability and responsive card design are visible. |
