@@ -1,9 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="530" viewBox="0 0 1000 530">
- <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#475569"/></marker></defs><style>text{font-family:Arial,sans-serif;fill:#172033}.title{font-size:25px;font-weight:700}.heading{font-size:20px;font-weight:700}.label{font-size:15px}.box{stroke:#2563eb;stroke-width:2;fill:#edf4ff}.data{stroke:#0f766e;stroke-width:2;fill:#ecfdf5}.line{stroke:#475569;stroke-width:2;marker-end:url(#arrow)}.note{fill:#fff7ed;stroke:#ea580c;stroke-width:1.5}</style>
- <text x="500" y="38" text-anchor="middle" class="title">EventBook Logical Architecture</text>
- <rect x="60" y="160" width="230" height="180" rx="14" class="box"/><text x="175" y="205" text-anchor="middle" class="heading">Web client</text><text x="175" y="240" text-anchor="middle" class="label">HTML / CSS / JavaScript</text><text x="175" y="270" text-anchor="middle" class="label">Screens, forms and alerts</text><text x="175" y="300" text-anchor="middle" class="label">Customer and admin UI</text>
- <rect x="385" y="130" width="255" height="240" rx="14" class="box"/><text x="512" y="178" text-anchor="middle" class="heading">Application server</text><text x="512" y="215" text-anchor="middle" class="label">Node.js HTTP API</text><text x="512" y="246" text-anchor="middle" class="label">Authentication / role access</text><text x="512" y="277" text-anchor="middle" class="label">Input and capacity validation</text><text x="512" y="308" text-anchor="middle" class="label">Booking and event operations</text>
- <rect x="735" y="160" width="205" height="180" rx="14" class="data"/><text x="837" y="205" text-anchor="middle" class="heading">Data store</text><text x="837" y="240" text-anchor="middle" class="label">data.json</text><text x="837" y="270" text-anchor="middle" class="label">Events</text><text x="837" y="300" text-anchor="middle" class="label">Bookings</text>
- <path d="M290 250H385M640 250H735" class="line"/><text x="337" y="232" text-anchor="middle" class="label">JSON / HTTP</text><text x="690" y="232" text-anchor="middle" class="label">read / write</text>
- <rect x="335" y="410" width="355" height="68" rx="10" class="note"/><text x="512" y="438" text-anchor="middle" class="label">Server-side validation prevents invalid and</text><text x="512" y="460" text-anchor="middle" class="label">over-capacity bookings from being saved.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="960" viewBox="0 0 1200 960" role="img" aria-labelledby="title description">
+  <title id="title">EventBook detailed component and deployment architecture</title>
+  <desc id="description">Browser client, Nginx reverse proxy, PM2-managed Node.js process, application services and JSON persistence for EventBook.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526581"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#172b4d}.title{font-size:25px;font-weight:700}.sub{font-size:14px;fill:#526581}.zone{fill:#f8fbff;stroke:#a8c0e7;stroke-width:2}.client{fill:#eef5ff;stroke:#2563eb;stroke-width:2}.server{fill:#f5f7fb;stroke:#3f6fbe;stroke-width:2}.data{fill:#effcf8;stroke:#0f766e;stroke-width:2}.note{fill:#fff8e5;stroke:#ca8a04;stroke-width:1.6}.head{font-size:16px;font-weight:700}.label{font-size:12.5px}.small{font-size:11.5px;fill:#526581}.line{fill:none;stroke:#526581;stroke-width:2;marker-end:url(#arrow)}.dash{stroke-dasharray:7 5}
+    </style>
+  </defs>
+  <text x="600" y="38" text-anchor="middle" class="title">EventBook — Detailed Component and Deployment Architecture</text>
+  <text x="600" y="61" text-anchor="middle" class="sub">Browser client, reverse proxy, Node.js process, application services and prototype persistence</text>
+  <rect x="30" y="95" width="300" height="690" rx="18" class="zone"/>
+  <text x="55" y="125" class="head">User/browser environment</text>
+  <rect x="65" y="165" width="230" height="170" rx="12" class="client"/>
+  <text x="180" y="194" text-anchor="middle" class="head">Customer / Administrator</text>
+  <text x="88" y="225" class="label">• demo authentication</text><text x="88" y="249" class="label">• browse, search, sort, save</text><text x="88" y="273" class="label">• checkout / manage bookings</text><text x="88" y="297" class="label">• create/edit events (admin)</text>
+  <rect x="65" y="400" width="230" height="235" rx="12" class="client"/>
+  <text x="180" y="430" text-anchor="middle" class="head">Web client</text>
+  <text x="88" y="462" class="label">index.html · style.css · app.js</text><text x="88" y="487" class="label">Home · Detail · Checkout</text><text x="88" y="512" class="label">Bookings · Admin dashboard</text><text x="88" y="537" class="label">localStorage: session + favourites</text><text x="88" y="575" class="small">Payment card fields are browser-only.</text>
+  <rect x="360" y="95" width="810" height="690" rx="18" class="zone"/>
+  <text x="385" y="125" class="head">Ubuntu EC2 / local Node deployment environment</text>
+  <rect x="400" y="165" width="210" height="150" rx="12" class="server"/>
+  <text x="505" y="194" text-anchor="middle" class="head">Nginx reverse proxy</text><text x="423" y="225" class="label">• TCP port 80</text><text x="423" y="249" class="label">• proxies Node requests</text><text x="423" y="281" class="small">nginx -t / systemctl evidence</text>
+  <rect x="655" y="165" width="210" height="150" rx="12" class="server"/>
+  <text x="760" y="194" text-anchor="middle" class="head">PM2 process manager</text><text x="678" y="225" class="label">• eventbook process</text><text x="678" y="249" class="label">• restart + auto-start</text><text x="678" y="281" class="small">pm2 status / pm2 save evidence</text>
+  <rect x="910" y="165" width="210" height="150" rx="12" class="server"/>
+  <text x="1015" y="194" text-anchor="middle" class="head">Node.js HTTP server</text><text x="933" y="225" class="label">• static delivery</text><text x="933" y="249" class="label">• REST-style API</text><text x="933" y="273" class="label">• localhost:3000</text>
+  <rect x="485" y="420" width="440" height="215" rx="12" class="server"/>
+  <text x="705" y="450" text-anchor="middle" class="head">Application services in server.js</text>
+  <text x="510" y="482" class="label">Authentication/session management · role checks</text><text x="510" y="507" class="label">Event filtering/sorting · event validation</text><text x="510" y="532" class="label">Booking/cancellation · capacity calculation</text><text x="510" y="557" class="label">JSON responses · health endpoint · static security</text><text x="510" y="598" class="small">Authorise and validate quantity/capacity before any write.</text>
+  <rect x="970" y="430" width="155" height="190" rx="12" class="data"/>
+  <text x="1047" y="460" text-anchor="middle" class="head">data.json</text><text x="992" y="492" class="label">Events [0..*]</text><text x="992" y="518" class="label">Bookings [0..*]</text><text x="992" y="550" class="label">read/write</text><text x="992" y="582" class="small">No card data.</text>
+  <path d="M295 515H355V360H505V315M610 240V350H1015V315M865 240H910M1015 315V420H925M925 527H970" class="line"/>
+  <text x="300" y="500" class="small">HTTP static assets + JSON API</text><text x="770" y="339" class="small">proxy routes requests</text><text x="870" y="229" class="small">supervises</text><text x="930" y="404" class="small">routes requests</text><text x="930" y="514" class="small">read/write</text>
+  <rect x="55" y="820" width="1090" height="95" rx="12" class="note"/>
+  <text x="80" y="850" class="head">Deployment evidence and limitation</text>
+  <text x="80" y="875" class="label">PM2, Nginx and local GET/API checks succeeded on the EC2 instance. External port-80 requests timed out and packet capture saw no inbound packet.</text>
+  <text x="80" y="898" class="small">This is reported as an upstream managed-network/VPC constraint, not as evidence that the application itself failed.</text>
 </svg>

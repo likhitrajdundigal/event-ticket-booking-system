@@ -1,11 +1,73 @@
 @startuml
-left to right direction
-package "EventBook requirements" {
-  requirement R01 { id = R-01 text = "Separate customer and administrator capabilities after authentication." }
-  requirement R02 { id = R-02 text = "Display event details and remaining ticket capacity." }
-  requirement R03 { id = R-03 text = "Create a booking for a positive whole ticket quantity." }
-  requirement R04 { id = R-04 text = "Reject bookings exceeding event capacity." }
-  requirement R05 { id = R-05 text = "Allow administrators to create a validated event." }
-  requirement R06 { id = R-06 text = "Persist events and bookings." }
+title EventBook — SysML Requirements Diagram
+top to bottom direction
+skinparam shadowing false
+skinparam linetype ortho
+
+package "EventBook system boundary" {
+  requirement R01 {
+    id = R-01
+    text = "Authenticate customer/admin and expose role-appropriate actions."
+    verifyMethod = "Manual login and authorisation test"
+  }
+  requirement R02 {
+    id = R-02
+    text = "Display event metadata, ticket price and remaining capacity."
+    verifyMethod = "Home/detail screen inspection"
+  }
+  requirement R03 {
+    id = R-03
+    text = "Accept only positive whole ticket quantities and calculate total."
+    verifyMethod = "Checkout and unit tests"
+  }
+  requirement R04 {
+    id = R-04
+    text = "Reject bookings exceeding remaining capacity at the server."
+    verifyMethod = "Over-capacity API/unit test"
+  }
+  requirement R05 {
+    id = R-05
+    text = "Allow an administrator to create and edit validated events."
+    verifyMethod = "Admin form/manual test"
+  }
+  requirement R06 {
+    id = R-06
+    text = "Persist event and booking records in the JSON repository."
+    verifyMethod = "Restart/persistence test"
+  }
+  requirement R07 {
+    id = R-07
+    text = "Confirm bookings and allow authorised cancellation."
+    verifyMethod = "Confirmation/cancellation test"
+  }
 }
+
+requirement "Customer journey" as CustomerJourney {
+  text = "discover → inspect → checkout → confirm → manage booking"
+}
+requirement "Administrator journey" as AdminJourney {
+  text = "authenticate → monitor → create/edit → manage bookings"
+}
+requirement "Integrity constraint" as Integrity {
+  text = "Role, quantity and capacity validation occur before persistence."
+}
+
+CustomerJourney -derives-> R01
+CustomerJourney -derives-> R02
+CustomerJourney -derives-> R03
+CustomerJourney -derives-> R04
+CustomerJourney -derives-> R06
+CustomerJourney -derives-> R07
+AdminJourney -derives-> R01
+AdminJourney -derives-> R05
+AdminJourney -derives-> R06
+AdminJourney -derives-> R07
+Integrity -refines-> R03
+Integrity -refines-> R04
+Integrity -refines-> R06
+
+note bottom of R04
+Client totals are informative only.
+The API is the authority for capacity.
+end note
 @enduml

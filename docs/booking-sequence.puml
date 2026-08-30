@@ -1,20 +1,53 @@
 @startuml
+title EventBook — Detailed Customer Booking Sequence
+autonumber
 actor Customer
-participant "Web client" as UI
+participant "Web client" as Client
 participant "Booking API" as API
-database "Data store" as DB
-Customer -> UI : choose quantity, confirm
-UI -> API : POST /api/bookings(eventId, quantity)
-API -> API : authenticate and validate quantity
-API -> DB : retrieve event
-DB --> API : capacity/booked
-alt tickets available
- API -> DB : increment booked; save booking
- DB --> API : booking ID
- API --> UI : 201 confirmation
- UI --> Customer : success state and total
-else insufficient tickets
- API --> UI : 400 validation error
- UI --> Customer : error state
+participant "Session / validation" as Validation
+database "data.json repository" as Database
+
+Customer -> Client : Browse/search events
+Client -> API : GET /api/events?q=&sort=
+API -> Database : Read event records
+Database --> API : events and booked counts
+API --> Client : Event list + remaining capacity
+
+Customer -> Client : View details; choose ticket quantity
+Client -> Client : Calculate visible total
+Customer -> Client : Submit simulated payment
+note right of Client
+Card fields are validated in browser only.
+Only eventId and quantity are sent to API.
+end note
+Client -> API : POST /api/bookings(eventId, quantity)
+API -> Validation : Get customer session and require customer role
+
+alt no valid customer session
+  Validation --> API : unauthorised
+  API --> Client : 401 error
+  Client --> Customer : Ask user to log in
+else authorised customer
+  API -> Validation : Check positive whole quantity
+  alt invalid quantity
+    Validation --> API : invalid
+    API --> Client : 400 quantity error
+    Client --> Customer : Explain validation error
+  else valid quantity
+    API -> Database : Read target event
+    Database --> API : capacity, booked and price
+    API -> Validation : Check booked + quantity <= capacity
+    alt insufficient capacity
+      Validation --> API : rejected
+      API --> Client : 400 remaining-ticket error
+      Client --> Customer : Show availability error
+    else capacity available
+      Validation --> API : accepted
+      API -> Database : Increment booked; append Confirmed booking
+      Database --> API : booking ID, total and status
+      API --> Client : 201 Created booking
+      Client --> Customer : Confirmation, reference and total
+    end
+  end
 end
 @enduml

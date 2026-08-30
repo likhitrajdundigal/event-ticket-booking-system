@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="950" viewBox="0 0 1200 950" role="img" aria-labelledby="title description">
+  <title id="title">EventBook detailed Level-1 data-flow diagram</title>
+  <desc id="description">Data flows between the Customer, Administrator, EventBook processes, browser local storage and the JSON data repository.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526581"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#172b4d}.title{font-size:25px;font-weight:700}.sub{font-size:14px;fill:#526581}.actor{fill:#fff;stroke:#526581;stroke-width:2}.process{fill:#eef5ff;stroke:#2563eb;stroke-width:2.4}.store{fill:#effcf8;stroke:#0f766e;stroke-width:2}.note{fill:#fff8e5;stroke:#ca8a04;stroke-width:1.5}.head{font-size:16px;font-weight:700}.label{font-size:12.5px}.small{font-size:11.5px;fill:#526581}.line{fill:none;stroke:#526581;stroke-width:1.8;marker-end:url(#arrow)}.two{fill:none;stroke:#526581;stroke-width:1.8;marker-start:url(#arrow);marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <text x="600" y="38" text-anchor="middle" class="title">EventBook — Detailed Level-1 Data-Flow Diagram</text>
+  <text x="600" y="62" text-anchor="middle" class="sub">Actors, application processes, local browser data, persistent records and privacy boundary</text>
+  <rect x="35" y="165" width="180" height="78" rx="12" class="actor"/><text x="125" y="197" text-anchor="middle" class="head">Customer</text><text x="125" y="219" text-anchor="middle" class="label">browser user</text>
+  <rect x="35" y="580" width="180" height="78" rx="12" class="actor"/><text x="125" y="612" text-anchor="middle" class="head">Administrator</text><text x="125" y="634" text-anchor="middle" class="label">browser user</text>
+  <circle cx="365" cy="210" r="100" class="process"/>
+  <text x="365" y="186" text-anchor="middle" class="head">1.0 Discover events</text><text x="365" y="210" text-anchor="middle" class="head">and authenticate</text><text x="365" y="236" text-anchor="middle" class="label">browse · search · sort · login</text>
+  <circle cx="630" cy="385" r="110" class="process"/>
+  <text x="630" y="358" text-anchor="middle" class="head">2.0 Create and manage</text><text x="630" y="382" text-anchor="middle" class="head">customer booking</text><text x="630" y="408" text-anchor="middle" class="label">quantity · confirmation · cancel</text><text x="630" y="429" text-anchor="middle" class="small">payment fields stay in browser</text>
+  <circle cx="365" cy="650" r="100" class="process"/>
+  <text x="365" y="626" text-anchor="middle" class="head">3.0 Manage events</text><text x="365" y="650" text-anchor="middle" class="head">and monitor bookings</text><text x="365" y="676" text-anchor="middle" class="label">create/edit · metrics · cancellation</text>
+  <circle cx="900" cy="505" r="105" class="process"/>
+  <text x="900" y="480" text-anchor="middle" class="head">4.0 Authorise and</text><text x="900" y="504" text-anchor="middle" class="head">validate request</text><text x="900" y="530" text-anchor="middle" class="label">role · event input · quantity · capacity</text>
+  <path d="M800 120h280v24c-24 15-256 15-280 0zm0 0v112c0 18 280 18 280 0V144c-24 15-256 15-280 0" class="store"/>
+  <text x="940" y="182" text-anchor="middle" class="head">D2 Browser local storage</text><text x="940" y="205" text-anchor="middle" class="label">demo session + saved favourites</text><text x="940" y="224" text-anchor="middle" class="small">local to one browser; no card fields</text>
+  <path d="M965 630h190v24c-20 15-170 15-190 0zm0 0v122c0 18 190 18 190 0V654c-20 15-170 15-190 0" class="store"/>
+  <text x="1060" y="696" text-anchor="middle" class="head">D1 data.json</text><text x="1060" y="718" text-anchor="middle" class="label">Event + Booking records</text><text x="1060" y="738" text-anchor="middle" class="small">prototype persistence</text>
+  <path d="M215 195H265" class="line"/><text x="218" y="183" class="small">search, login, selected event</text>
+  <path d="M265 225H215" class="line"/><text x="221" y="252" class="small">event list, details, role UI</text>
+  <path d="M465 190H800" class="two"/><text x="620" y="178" text-anchor="middle" class="small">session token, saved event IDs</text>
+  <path d="M440 275L535 310" class="line"/><text x="450" y="306" class="small">event ID + requested quantity</text>
+  <path d="M215 630H265" class="line"/><text x="220" y="618" class="small">event details, booking action</text>
+  <path d="M265 665H215" class="line"/><text x="220" y="693" class="small">metrics, validation feedback</text>
+  <path d="M740 420H795" class="line"/><text x="742" y="408" class="small">booking/cancellation request</text>
+  <path d="M465 635L800 555" class="line"/><text x="555" y="588" class="small">admin create/edit/cancel request</text>
+  <path d="M795 475H740" class="line"/><text x="740" y="496" class="small">accepted/rejected result</text>
+  <path d="M980 570L1015 630" class="two"/><text x="1000" y="600" class="small">read/write</text>
+  <rect x="55" y="815" width="1090" height="96" rx="12" class="note"/>
+  <text x="80" y="846" class="head">Data and privacy constraint</text>
+  <text x="80" y="871" class="label">The web client calculates a display total and validates demo card-field format, but sends only eventId and quantity to the booking API. Card number, expiry and CVV never enter the API, D1 or D2.</text>
+  <text x="80" y="895" class="small">Capacity is authoritative only after process 4 validates the request and the accepted booking/event update is written to D1.</text>
+</svg>

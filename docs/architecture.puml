@@ -1,0 +1,37 @@
+@startuml
+title EventBook Component and Deployment Architecture
+left to right direction
+skinparam shadowing false
+skinparam componentStyle rectangle
+
+actor "Customer /\nAdministrator" as User
+package "Browser environment" {
+  component "Web client\nindex.html · style.css · app.js" as Web
+  database "Browser local storage\nsession + favourites" as Local
+}
+node "Ubuntu EC2 / local Node environment" {
+  component "Nginx reverse proxy\nTCP 80" as Nginx
+  component "PM2\neventbook process manager" as PM2
+  component "Node.js HTTP server\nlocalhost:3000" as Node
+  component "Application services\nauth/session · role checks\nevent validation · booking/cancellation\ncapacity protection · health endpoint" as Services
+  database "data.json\nEvent [0..*] · Booking [0..*]" as Data
+}
+
+User --> Web : UI actions
+Web <--> Local : session + favourites
+Web --> Nginx : HTTP static assets + JSON API
+Nginx --> Node : proxy request
+PM2 --> Node : supervises/restarts
+Node --> Services : routes request
+Services <--> Data : read/write records
+
+note bottom of Web
+Demo card fields remain in the browser and are never sent to the API.
+end note
+note bottom of Services
+Authorise role and validate whole quantity/capacity before persistence.
+end note
+note bottom of Nginx
+EC2 local PM2/Nginx/API checks passed. Public network requests timed out upstream.
+end note
+@enduml

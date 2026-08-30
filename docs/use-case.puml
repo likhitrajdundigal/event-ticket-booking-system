@@ -1,22 +1,59 @@
 @startuml
+title EventBook — Detailed Use-Case Diagram
 left to right direction
+skinparam shadowing false
+
 actor Customer
 actor Administrator
-rectangle "EventBook" {
-  usecase "Authenticate" as UC1
-  usecase "Browse events" as UC2
-  usecase "Book tickets" as UC3
-  usecase "View/cancel own booking" as UC4
-  usecase "Create event" as UC5
-  usecase "View/cancel all bookings" as UC6
-  usecase "Validate capacity" as UC7
+
+rectangle "EventBook system boundary" {
+  usecase "Authenticate\nwith demo account" as UC01
+  usecase "Browse, search and\nsort events" as UC02
+  usecase "Save / remove\nlocal favourite" as UC03
+  usecase "View event details\nand availability" as UC04
+  usecase "Complete simulated\ncheckout" as UC05
+  usecase "Create confirmed\nbooking" as UC06
+  usecase "View / cancel\nown booking" as UC07
+  usecase "View booking\ninsights" as UC08
+  usecase "View admin metrics\nand all bookings" as UC09
+  usecase "Create / edit\nevent" as UC10
+  usecase "Cancel eligible\nbooking" as UC11
+  usecase "Authorise role" as UC12
+  usecase "Validate event\nand booking input" as UC13
+  usecase "Validate remaining\ncapacity" as UC14
+  usecase "Persist event\nand booking data" as UC15
 }
-Customer --> UC1
-Customer --> UC2
-Customer --> UC3
-Customer --> UC4
-Administrator --> UC1
-Administrator --> UC5
-Administrator --> UC6
-UC3 .> UC7 : <<include>>
+
+Customer --> UC01
+Customer --> UC02
+Customer --> UC03
+Customer --> UC04
+Customer --> UC05
+Customer --> UC07
+Customer --> UC08
+Administrator --> UC01
+Administrator --> UC09
+Administrator --> UC10
+Administrator --> UC11
+
+UC05 .> UC06 : <<include>>
+UC06 .> UC12 : <<include>>
+UC06 .> UC13 : <<include>>
+UC06 .> UC14 : <<include>>
+UC06 .> UC15 : <<include>>
+UC07 .> UC11 : <<extend>>
+UC11 .> UC12 : <<include>>
+UC11 .> UC15 : <<include>>
+UC10 .> UC12 : <<include>>
+UC10 .> UC13 : <<include>>
+UC10 .> UC15 : <<include>>
+
+note bottom of UC03
+Favourites are held only
+in browser local storage.
+end note
+note bottom of UC05
+Card data never leaves
+the browser in this prototype.
+end note
 @enduml

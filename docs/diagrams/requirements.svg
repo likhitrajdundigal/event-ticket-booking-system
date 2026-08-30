@@ -1,1 +1,129 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600"><style>text{font-family:Arial,sans-serif;fill:#172033}.title{font-size:25px;font-weight:700}.id{font-size:17px;font-weight:700}.txt{font-size:14px}.box{fill:#f8fafc;stroke:#2563eb;stroke-width:2}</style><text x="500" y="37" text-anchor="middle" class="title">EventBook Requirements Diagram</text><g class="box"><rect x="60" y="80" width="400" height="120" rx="10"/><rect x="540" y="80" width="400" height="120" rx="10"/><rect x="60" y="245" width="400" height="120" rx="10"/><rect x="540" y="245" width="400" height="120" rx="10"/><rect x="60" y="410" width="400" height="120" rx="10"/><rect x="540" y="410" width="400" height="120" rx="10"/></g><g><text x="85" y="112" class="id">R-01 Role-based access</text><text x="85" y="143" class="txt">Separate customer and administrator</text><text x="85" y="164" class="txt">capabilities after authentication.</text><text x="565" y="112" class="id">R-02 Event information</text><text x="565" y="143" class="txt">Display event detail and remaining</text><text x="565" y="164" class="txt">ticket capacity.</text><text x="85" y="277" class="id">R-03 Valid booking quantity</text><text x="85" y="308" class="txt">Create bookings only for positive,</text><text x="85" y="329" class="txt">whole ticket quantities.</text><text x="565" y="277" class="id">R-04 Capacity protection</text><text x="565" y="308" class="txt">Reject bookings that exceed remaining</text><text x="565" y="329" class="txt">event capacity.</text><text x="85" y="442" class="id">R-05 Validated event creation</text><text x="85" y="473" class="txt">Allow administrators to create</text><text x="85" y="494" class="txt">validated events.</text><text x="565" y="442" class="id">R-06 Persistent records</text><text x="565" y="473" class="txt">Persist events and bookings across</text><text x="565" y="494" class="txt">server restarts.</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1200" viewBox="0 0 1440 1200" role="img" aria-labelledby="title description">
+  <title id="title">EventBook detailed SysML requirements diagram</title>
+  <desc id="description">Seven core EventBook requirements, their verification methods, customer and administrator workflow derivations, and the server-side integrity constraint.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#526581"/></marker>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #172b4d; }
+      .title { font-size: 25px; font-weight: 700; }
+      .subtitle { font-size: 15px; fill: #526581; }
+      .boundary { fill: #f8fbff; stroke: #a9c4ef; stroke-width: 2; }
+      .workflow { fill: #edf4ff; stroke: #2563eb; stroke-width: 2; }
+      .requirement { fill: #ffffff; stroke: #4f73b9; stroke-width: 2; }
+      .priority { fill: #e8f0ff; }
+      .verification { fill: #f5f8fd; }
+      .constraint { fill: #fff7df; stroke: #ca8a04; stroke-width: 2; }
+      .heading { font-size: 18px; font-weight: 700; }
+      .id { font-size: 16px; font-weight: 700; fill: #1747a6; }
+      .body { font-size: 14px; }
+      .small { font-size: 12px; fill: #526581; }
+      .line { stroke: #526581; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .dash { stroke-dasharray: 7 5; }
+    </style>
+  </defs>
+
+  <text x="720" y="42" text-anchor="middle" class="title">EventBook — Detailed SysML Requirements Diagram</text>
+  <text x="720" y="68" text-anchor="middle" class="subtitle">Core functional requirements, workflow derivations and verification evidence</text>
+
+  <rect x="30" y="92" width="1380" height="1050" rx="18" class="boundary"/>
+  <text x="55" y="124" class="heading">EventBook system boundary</text>
+  <text x="55" y="148" class="small">Each requirement is implemented by a Jira story/task and verified by the stated browser, API, terminal or automated-test evidence.</text>
+
+  <rect x="90" y="180" width="530" height="88" rx="12" class="workflow"/>
+  <text x="115" y="212" class="heading">Customer workflow</text>
+  <text x="115" y="238" class="body">discover → inspect → simulated checkout → confirmation → manage booking</text>
+
+  <rect x="820" y="180" width="530" height="88" rx="12" class="workflow"/>
+  <text x="845" y="212" class="heading">Administrator workflow</text>
+  <text x="845" y="238" class="body">authenticate → monitor → create/edit event → manage bookings</text>
+
+  <path d="M355 268V304H220" class="line dash"/><path d="M355 268V304H790" class="line dash"/>
+  <path d="M1085 268V304H1215" class="line dash"/><path d="M1085 268V304H790" class="line dash"/>
+  <text x="472" y="294" class="small">derives</text><text x="956" y="294" class="small">derives</text>
+
+  <!-- R-01 -->
+  <rect x="80" y="330" width="610" height="170" rx="12" class="requirement"/>
+  <rect x="80" y="330" width="116" height="31" rx="12" class="priority"/>
+  <text x="102" y="351" class="id">R-01 · Must</text>
+  <text x="218" y="360" class="heading">Role-based authentication and access</text>
+  <text x="106" y="393" class="body">Authenticate a customer or administrator and expose only</text>
+  <text x="106" y="415" class="body">role-appropriate functions after a valid demo login.</text>
+  <rect x="101" y="435" width="566" height="43" rx="7" class="verification"/>
+  <text x="115" y="454" class="small">Verify: customer/admin navigation and invalid-login error · Jira EVENT-4, EVENT-9</text>
+  <text x="115" y="470" class="small">Design: demo sessions, Bearer token and server-side requireRole()</text>
+
+  <!-- R-02 -->
+  <rect x="750" y="330" width="610" height="170" rx="12" class="requirement"/>
+  <rect x="750" y="330" width="116" height="31" rx="12" class="priority"/>
+  <text x="772" y="351" class="id">R-02 · Must</text>
+  <text x="888" y="360" class="heading">Event discovery and availability information</text>
+  <text x="776" y="393" class="body">Display title, date/time, venue, price and remaining tickets</text>
+  <text x="776" y="415" class="body">with search, sort and visual availability indicators.</text>
+  <rect x="771" y="435" width="566" height="43" rx="7" class="verification"/>
+  <text x="785" y="454" class="small">Verify: home/detail screen and search result · Jira EVENT-5, EVENT-10</text>
+  <text x="785" y="470" class="small">Design: Event cards, details, filter bar and availability progress bar</text>
+
+  <!-- R-03 -->
+  <rect x="80" y="530" width="610" height="170" rx="12" class="requirement"/>
+  <rect x="80" y="530" width="116" height="31" rx="12" class="priority"/>
+  <text x="102" y="551" class="id">R-03 · Must</text>
+  <text x="218" y="560" class="heading">Valid ticket quantity and calculated total</text>
+  <text x="106" y="593" class="body">Accept a positive whole ticket quantity and calculate the</text>
+  <text x="106" y="615" class="body">visible order total before a booking is submitted.</text>
+  <rect x="101" y="635" width="566" height="43" rx="7" class="verification"/>
+  <text x="115" y="654" class="small">Verify: checkout quantity/total and unit test · Jira EVENT-6, EVENT-13</text>
+  <text x="115" y="670" class="small">Design: quantity input, updateCheckoutTotal() and createBooking()</text>
+
+  <!-- R-04 -->
+  <rect x="750" y="530" width="610" height="170" rx="12" class="requirement"/>
+  <rect x="750" y="530" width="116" height="31" rx="12" class="priority"/>
+  <text x="772" y="551" class="id">R-04 · Must</text>
+  <text x="888" y="560" class="heading">Server-side capacity protection</text>
+  <text x="776" y="593" class="body">Reject any booking where booked + requested quantity exceeds</text>
+  <text x="776" y="615" class="body">capacity; do not write a booking or change event availability.</text>
+  <rect x="771" y="635" width="566" height="43" rx="7" class="verification"/>
+  <text x="785" y="654" class="small">Verify: over-capacity error and unit test · Jira EVENT-6, EVENT-12</text>
+  <text x="785" y="670" class="small">Design: getRemainingTickets() and createBooking() on the API</text>
+
+  <!-- R-05 -->
+  <rect x="80" y="730" width="610" height="170" rx="12" class="requirement"/>
+  <rect x="80" y="730" width="116" height="31" rx="12" class="priority"/>
+  <text x="102" y="751" class="id">R-05 · Must</text>
+  <text x="218" y="760" class="heading">Validated administrator event management</text>
+  <text x="106" y="793" class="body">Allow an administrator to create and edit event details with</text>
+  <text x="106" y="815" class="body">required values, non-negative price and safe capacity rules.</text>
+  <rect x="101" y="835" width="566" height="43" rx="7" class="verification"/>
+  <text x="115" y="854" class="small">Verify: Admin dashboard/create-edit form · Jira EVENT-7, EVENT-15</text>
+  <text x="115" y="870" class="small">Design: validEvent(), POST/PUT event endpoints and metrics dashboard</text>
+
+  <!-- R-06 -->
+  <rect x="750" y="730" width="610" height="170" rx="12" class="requirement"/>
+  <rect x="750" y="730" width="116" height="31" rx="12" class="priority"/>
+  <text x="772" y="751" class="id">R-06 · Must</text>
+  <text x="888" y="760" class="heading">Persistent event and booking records</text>
+  <text x="776" y="793" class="body">Persist events and bookings across Node server restarts using</text>
+  <text x="776" y="815" class="body">the JSON repository; demo sessions remain intentionally transient.</text>
+  <rect x="771" y="835" width="566" height="43" rx="7" class="verification"/>
+  <text x="785" y="854" class="small">Verify: restart/data-file evidence · Jira EVENT-14</text>
+  <text x="785" y="870" class="small">Design: readDatabase(), writeDatabase() and data.json</text>
+
+  <!-- R-07 -->
+  <rect x="80" y="930" width="610" height="170" rx="12" class="requirement"/>
+  <rect x="80" y="930" width="124" height="31" rx="12" class="priority"/>
+  <text x="102" y="951" class="id">R-07 · Should</text>
+  <text x="218" y="960" class="heading">Confirmation and authorised cancellation</text>
+  <text x="106" y="993" class="body">Show a booking reference and total after success; allow a customer</text>
+  <text x="106" y="1015" class="body">or administrator to cancel an eligible confirmed booking.</text>
+  <rect x="101" y="1035" width="566" height="43" rx="7" class="verification"/>
+  <text x="115" y="1054" class="small">Verify: confirmation, My Bookings and cancellation result · Jira EVENT-11, EVENT-14</text>
+  <text x="115" y="1070" class="small">Design: receipt, booking history and POST /api/bookings/:id/cancel</text>
+
+  <rect x="750" y="930" width="610" height="170" rx="12" class="constraint"/>
+  <text x="780" y="967" class="heading">Integrity constraint (refines R-03, R-04 and R-06)</text>
+  <text x="780" y="997" class="body">The browser can calculate a visible checkout total, but the API is the</text>
+  <text x="780" y="1019" class="body">authority. It authorises role, validates quantity and capacity, then writes</text>
+  <text x="780" y="1041" class="body">both booking and event state together. Payment card fields are never sent.</text>
+  <text x="780" y="1072" class="small">Evidence: booking sequence, API source, automated capacity test and validation screenshot.</text>
+
+  <path d="M690 615H750" class="line"/><path d="M690 1015H750" class="line"/>
+</svg>
